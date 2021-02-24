@@ -1,0 +1,29 @@
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ main ]
+ 
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    #Cheks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    # Runs a single command using the runners shell
+    - name: Installing node module
+    - uses: actions/setup-node@v2-beta
+    - with: 
+        node-version: 12 
+        
+        
+    - name: Installing surge    
+      run: npm install --global surge
+    - name: deploying using surge
+      run: surge ./ hammad-demo.surge.sh/ --token${{ secrets.VERY_SECRET }}
+      
+      
+      
